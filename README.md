@@ -1,1 +1,1 @@
-# TP2-Grafo-Colora-o
+# TP2-Grafo-Coloracao
