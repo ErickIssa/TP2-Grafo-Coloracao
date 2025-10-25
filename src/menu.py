@@ -11,7 +11,7 @@ def criaGrafoCsv(arquivo_csv):
         g = nx.Graph()
         for linha in dados:
              g.add_edge(linha[0].strip(), linha[1].strip()) # isso faz com que cada linha seja add no grafo se tiver apenas 2 elementos, mo locura kkk
-
+            #esse indice indica o campo 
         print("Número de disciplinas:", len(g.nodes())) #debugs apagar dps
         print("Número de conflitos:", len(g.edges()))
     
@@ -19,27 +19,13 @@ def criaGrafoCsv(arquivo_csv):
 
 
 def desenhaGrafo(grafo, titulo="Grafo de Conflitos", cores=None):
-    """
-    Desenha o grafo na tela usando matplotlib.
-    
-    Parâmetros:
-    - grafo: objeto networkx.Graph
-    - titulo: título do gráfico (string)
-    - cores: dicionário opcional {nó: cor}, para coloração de grafos
-    
-    Exemplo:
-        desenhaGrafo(G)
-        desenhaGrafo(G, cores={'A':1,'B':2,'C':1})
-    """
-
     plt.figure(figsize=(8, 6))
-    pos = nx.spring_layout(grafo, seed=42)  # layout automático (arranjo dos vértices)
-
-    # Define cor padrão dos nós
+    pos = nx.spring_layout(grafo, seed=42) 
+    
     if cores:
-        # Garante que cada nó receba uma cor numérica (convertida para um mapa de cores)
+       
         lista_cores = [cores.get(n, 0) for n in grafo.nodes()]
-        cmap = plt.cm.get_cmap('Set3', len(set(lista_cores)))  # paleta de cores
+        cmap = plt.cm.get_cmap('Set3', len(set(lista_cores)))
     else:
         lista_cores = "lightblue"
         cmap = None
