@@ -42,15 +42,37 @@ def desenhaGrafo(grafo, titulo="Grafo de Conflitos", cores=None):
     plt.show()
 
 
-def coloreGrafoGcol(grafo):
-    cores = gcol.node_coloring(grafo)
 
-    print("\nCores atribuídas aos nós (via gCol):")
+def coloreGrafoGcol_dsatur(grafo):
+    cores = gcol.node_coloring(grafo,strategy='dsatur')
+
+    print("\nCores atribuídas aos nós (strategy dsatur):")
     for nodo, cor in cores.items():
         print(f"{nodo}: cor {cor}")
 
     print(f"\nTotal de cores usadas: {len(set(cores.values()))}")
     return cores
+
+def coloreGrafoGcol_rlf(grafo):
+    cores = gcol.node_coloring(grafo,strategy='rlf')
+
+    print("\nCores atribuídas aos nós (strategy rlf):")
+    for nodo, cor in cores.items():
+        print(f"{nodo}: cor {cor}")
+
+    print(f"\nTotal de cores usadas: {len(set(cores.values()))}")
+    return cores
+
+def coloreGrafoGcol_welsh_powell(grafo):
+    cores =gcol.node_coloring(grafo, strategy='welsh_powell')
+
+    print("\nCores atribuídas aos nós (strategia welsh_powell):")
+    for nodo, cor in cores.items():
+        print(f"{nodo}: cor {cor}")
+
+    print(f"\nTotal de cores usadas: {len(set(cores.values()))}")
+    return cores
+
 
 
 def menu():
@@ -72,7 +94,9 @@ def menu():
         print("\n===== MENU =====")
         print("1 - Ler outro arquivo CSV")
         print("2 - Mostrar grafo")
-        print("3 - Colorir grafo com gCol")
+        print("3 - Colorir grafo com dsatur")
+        print("4 - Colorir grafo com rlf")
+        print("5 - Colorir grafo com idrlf")
         print("0 - Sair")
 
         try:
@@ -88,7 +112,13 @@ def menu():
             case 2:
                 desenhaGrafo(g, "Grafo de Conflitos", cores)
             case 3:
-                cores = coloreGrafoGcol(g) #a variavel cores tem um dicionario com um vertice e a cor que ele pode ser
+                cores = coloreGrafoGcol_dsatur(g) #a variavel cores tem um dicionario com um vertice e a cor que ele pode ser
+                desenhaGrafo(g, "Grafo Colorido (gCol)", cores)
+            case 4:
+                cores = coloreGrafoGcol_rlf(g) #a variavel cores tem um dicionario com um vertice e a cor que ele pode ser
+                desenhaGrafo(g, "Grafo Colorido (gCol)", cores)
+            case 5:
+                cores = coloreGrafoGcol_welsh_powell(g) #a variavel cores tem um dicionario com um vertice e a cor que ele pode ser
                 desenhaGrafo(g, "Grafo Colorido (gCol)", cores)
             case 0:
                 print("-------Execução Encerrada---------")
