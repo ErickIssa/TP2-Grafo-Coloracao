@@ -2,8 +2,10 @@ import networkx as nx
 import csv
 import matplotlib.pyplot as plt
 import gcol  
+import time
 
 def criaGrafoCsv(arquivo_csv):
+    inicio = time.time()
     with open(arquivo_csv, 'r') as f:
         dados = csv.reader(f)
         next(dados)  # pula linha de cabeçalho
@@ -12,6 +14,10 @@ def criaGrafoCsv(arquivo_csv):
             g.add_edge(linha[0].strip(), linha[1].strip())
         print("Número de disciplinas:", len(g.nodes()))
         print("Número de conflitos:", len(g.edges()))
+        
+    fim = time.time()
+    delta = round(fim - inicio,6)
+    print(f"Tempo gasto para gerar o grafo: {delta}s")
     return g
 
 
@@ -43,7 +49,11 @@ def desenhaGrafo(grafo, titulo="Grafo de Conflitos", cores=None):
 
 
 def coloreGrafoGcol(grafo):
+    inicio = time.time()
     cores = gcol.node_coloring(grafo)
+    fim = time.time()
+    delta = round(fim - inicio,6)
+    print(f"Tempo gasto para colorir o grafo: {delta}s")
 
     print("\nCores atribuídas aos nós (via gCol):")
     for nodo, cor in cores.items():
