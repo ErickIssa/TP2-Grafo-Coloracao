@@ -16,7 +16,7 @@ def criaGrafoCsv(arquivo_csv):
         print("Número de conflitos:", len(g.edges()))
         
     fim = time.time()
-    delta = round(fim - inicio,6)
+    delta = round(fim - inicio, 6)
     print(f"Tempo gasto para gerar o grafo: {delta}s")
     return g
 
@@ -47,16 +47,12 @@ def desenhaGrafo(grafo, titulo="Grafo de Conflitos", cores=None):
     plt.title(titulo)
     plt.show()
 
-
-def coloreGrafoGcol(grafo):
-    inicio = time.time()
-    cores = gcol.node_coloring(grafo)
-    fim = time.time()
-    delta = round(fim - inicio,6)
-    print(f"Tempo gasto para colorir o grafo: {delta}s")
-
 def coloreGrafoGcol_dsatur(grafo):
-    cores = gcol.node_coloring(grafo,strategy='dsatur')
+    inicio = time.time()
+    cores = gcol.node_coloring(grafo, strategy='dsatur')
+    fim = time.time()
+    delta = round(fim - inicio, 6)
+    print(f"Tempo gasto para colorir o grafo (dsatur): {delta}s")
 
     print("\nCores atribuídas aos nós (strategy dsatur):")
     for nodo, cor in cores.items():
@@ -65,8 +61,13 @@ def coloreGrafoGcol_dsatur(grafo):
     print(f"\nTotal de cores usadas: {len(set(cores.values()))}")
     return cores
 
+
 def coloreGrafoGcol_rlf(grafo):
-    cores = gcol.node_coloring(grafo,strategy='rlf')
+    inicio = time.time()
+    cores = gcol.node_coloring(grafo, strategy='rlf')
+    fim = time.time()
+    delta = round(fim - inicio, 6)
+    print(f"Tempo gasto para colorir o grafo (rlf): {delta}s")
 
     print("\nCores atribuídas aos nós (strategy rlf):")
     for nodo, cor in cores.items():
@@ -75,8 +76,13 @@ def coloreGrafoGcol_rlf(grafo):
     print(f"\nTotal de cores usadas: {len(set(cores.values()))}")
     return cores
 
+
 def coloreGrafoGcol_welsh_powell(grafo):
-    cores =gcol.node_coloring(grafo, strategy='welsh_powell')
+    inicio = time.time()
+    cores = gcol.node_coloring(grafo, strategy='welsh_powell')
+    fim = time.time()
+    delta = round(fim - inicio, 6)
+    print(f"Tempo gasto para colorir o grafo (welsh_powell): {delta}s")
 
     print("\nCores atribuídas aos nós (strategia welsh_powell):")
     for nodo, cor in cores.items():
@@ -84,7 +90,6 @@ def coloreGrafoGcol_welsh_powell(grafo):
 
     print(f"\nTotal de cores usadas: {len(set(cores.values()))}")
     return cores
-
 
 
 def menu():
@@ -108,7 +113,7 @@ def menu():
         print("2 - Mostrar grafo")
         print("3 - Colorir grafo com dsatur")
         print("4 - Colorir grafo com rlf")
-        print("5 - Colorir grafo com idrlf")
+        print("5 - Colorir grafo com welsh_powell")
         print("0 - Sair")
 
         try:
@@ -124,14 +129,14 @@ def menu():
             case 2:
                 desenhaGrafo(g, "Grafo de Conflitos", cores)
             case 3:
-                cores = coloreGrafoGcol_dsatur(g) #a variavel cores tem um dicionario com um vertice e a cor que ele pode ser
-                desenhaGrafo(g, "Grafo Colorido (gCol)", cores)
+                cores = coloreGrafoGcol_dsatur(g)
+                desenhaGrafo(g, "Grafo Colorido (dsatur)", cores)
             case 4:
-                cores = coloreGrafoGcol_rlf(g) #a variavel cores tem um dicionario com um vertice e a cor que ele pode ser
-                desenhaGrafo(g, "Grafo Colorido (gCol)", cores)
+                cores = coloreGrafoGcol_rlf(g)
+                desenhaGrafo(g, "Grafo Colorido (rlf)", cores)
             case 5:
-                cores = coloreGrafoGcol_welsh_powell(g) #a variavel cores tem um dicionario com um vertice e a cor que ele pode ser
-                desenhaGrafo(g, "Grafo Colorido (gCol)", cores)
+                cores = coloreGrafoGcol_welsh_powell(g)
+                desenhaGrafo(g, "Grafo Colorido (welsh_powell)", cores)
             case 0:
                 print("-------Execução Encerrada---------")
                 break
